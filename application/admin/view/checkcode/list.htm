@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8">
+    <title>列表查询</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__static__/style/bootstrap.css" rel="stylesheet">
+    <link href="__static__/style/font-awesome.css" rel="stylesheet">
+    <link href="__static__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__static__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__static__/style/demo.css" rel="stylesheet">
+    <link href="__static__/style/typicons.css" rel="stylesheet">
+    <link href="__static__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/top"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			
+			<!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li><a href="#">系统</a></li>
+                        <li class="active">兑换码管理</li>
+                        <li>{$condition}</li><!--显示当前搜索状态：条件/全部-->
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+					<button type="button" tooltip="添加兑换码" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('add')}'"> <i class="fa fa-plus"></i> Add
+					</button>
+					<div class="row">
+					    <div class="col-lg-12 col-sm-12 col-xs-12">
+					        <div class="widget">
+					            <div class="widget-body">
+					                <div class="flip-scroll">
+					                    <table class="table table-bordered table-hover">
+					                        <thead class="">
+					                            <tr>
+					                                <th class="text-center" width="5%">ID</th>
+					                                <th class="text-center">用户名</th>
+					                                <th class="text-center">订单号</th>
+					                                <th class="text-center">兑换码</th>
+					                                <th class="text-center">所属类型</th>
+					                                <th class="text-center" width="12%">下单时间</th>
+					                                <th class="text-center" width="6%">查询次数</th>
+					                                <th class="text-center" width="10%">操作</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+						                        {volist name="codeRes" id="code"}
+						                            <tr id="{$code.id}">
+						                                <td align="center">{$code.id}</td>
+						                                <td align="center">{$code.uname}</td>
+						                                <td align="center">{$code.oid}</td>
+						                                <td align="center">{$code.code}</td>
+						                                <td align="center">{$code.class}</td>
+						                                <td align="center">{$code.otime}</td>
+						                                <td align="center">{$code.checknum}次</td>
+						                                <td align="center">
+						                                    <a href="{:url('edit',array('id'=>$code['id']))}" class="btn btn-primary btn-sm shiny">
+						                                        <i class="fa fa-edit"></i> 编辑
+						                                    </a>
+						                                    <a href="#" onClick="ajaxdel(this);" class="btn btn-danger btn-sm shiny">
+						                                        <i class="fa fa-trash-o"></i> 删除
+						                                    </a>
+						                                </td>
+						                            </tr>
+						                        {/volist}
+					                        </tbody>
+					                    </table>
+					                </div>
+					                <div style="padding-top:10px; text-align:center;">
+					                {$codeRes->render()}
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+            
+		</div>	
+	</div>
+    <script type="text/javascript">
+	    function ajaxdel(obj){
+	        if(confirm('确实要删除吗?')){
+	            var tr=$(obj).parent().parent();
+	            var id=tr.attr('id');
+	            $.ajax({
+	                type:"post",
+	                url:"{:url('del')}",
+	                data:{id:id},
+	                success:function(data){
+	                   tr.remove(); 
+	                }
+	            });
+	        }
+	    }
+    </script>
+
+	<!--Basic Scripts-->
+    <script src="__static__/style/jquery_002.js"></script>
+    <script src="__static__/style/bootstrap.js"></script>
+    <script src="__static__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__static__/style/beyond.js"></script>
+
+</body></html>

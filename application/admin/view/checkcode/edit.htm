@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8">
+    <title>编辑兑换码</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__static__/style/bootstrap.css" rel="stylesheet">
+    <link href="__static__/style/font-awesome.css" rel="stylesheet">
+    <link href="__static__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__static__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__static__/style/demo.css" rel="stylesheet">
+    <link href="__static__/style/typicons.css" rel="stylesheet">
+    <link href="__static__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/top"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li><a href="#">系统</a></li>
+                        <li><a href="{:url('lst')}">兑换码管理</a></li>
+                        <li class="active">修改兑换码</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+					<div class="row">
+					    <div class="col-lg-12 col-sm-12 col-xs-12">
+					        <div class="widget">
+					            <div class="widget-header bordered-bottom bordered-blue">
+					                <span class="widget-caption">修改兑换码</span>
+					            </div>
+					            <div class="widget-body">
+					                <div id="horizontal-form">
+					                    <form class="form-horizontal" id="myform" action="" method="post">
+					                        <input type="hidden" name="id" value="{$codes.id}">
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">用户名</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="uname" value="{$codes.uname}" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">订单号</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="oid" value="{$codes.oid}" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">兑换码</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="code" value="{$codes.code}" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">下单时间</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="otime" value="{$codes.otime}" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属类型</label>
+					                            <div class="col-sm-6">
+					                                <select name="class" style="width: 100%;">
+					                                    <option {if condition="$codes['class'] eq '类型一'"} selected="selected" {/if} value="类型一">类型一</option>
+					                                    <option {if condition="$codes['class'] eq '类型二'"} selected="selected" {/if} value="类型二">类型二</option>
+					                                    <option {if condition="$codes['class'] eq '类型三'"} selected="selected" {/if} value="类型三">类型三</option>
+					                                </select>
+					                            </div>
+					                        </div>  
+					                        <div class="form-group">
+					                            <div class="col-sm-offset-2 col-sm-10">
+					                                <button type="submit" onclick="return ajaxedit();" class="btn btn-default">保存信息</button>
+					                            </div>
+					                        </div>
+					                    </form>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+    <script type="text/javascript">
+	    function ajaxedit(){
+	        var id=$("input[name='id']").val();
+	        var uname=$("input[name='uname']").val();
+	        var oid=$("input[name='oid']").val();
+	        var code=$("input[name='code']").val();
+	        var otime=$("input[name='otime']").val();
+	        var _class=$("select[name='class']").val();
+	        if(!uname || !oid || !code || !otime || !_class){
+	            alert('请填写每一项数据！');
+	            return false;
+	        }
+	        $.ajax({
+	            type:"post",
+	            url:"{:url('edit')}",
+	            data:{id:id,uname:uname,oid:oid,code:code,otime:otime,class:_class},
+	            success:function(data){
+	                alert(data.msg);
+	            }
+	        });
+	        return false;
+	    }
+    </script>
+	<!--Basic Scripts-->
+    <script src="__static__/style/jquery_002.js"></script>
+    <script src="__static__/style/bootstrap.js"></script>
+    <script src="__static__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__static__/style/beyond.js"></script>
+
+</body></html>

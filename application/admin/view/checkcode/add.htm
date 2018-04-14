@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8">
+    <title>添加兑换码</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__static__/style/bootstrap.css" rel="stylesheet">
+    <link href="__static__/style/font-awesome.css" rel="stylesheet">
+    <link href="__static__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__static__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__static__/style/demo.css" rel="stylesheet">
+    <link href="__static__/style/typicons.css" rel="stylesheet">
+    <link href="__static__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/top"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li><a href="#">系统</a></li>
+                        <li><a href="{:url('lst')}">兑换码管理</a></li>
+                    	<li class="active">添加兑换码</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+					<div class="row">
+					    <div class="col-lg-12 col-sm-12 col-xs-12">
+					        <div class="widget">
+					            <div class="widget-header bordered-bottom bordered-blue">
+					                <span class="widget-caption">新增兑换码</span>
+					            </div>
+					            <div class="widget-body">
+					                <div id="horizontal-form">
+					                    <form class="form-horizontal" id="myform" action="" method="post">
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">用户名</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="uname" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">订单号</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="oid" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">兑换码</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="code" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="username" class="col-sm-2 control-label no-padding-right">下单时间</label>
+					                            <div class="col-sm-6">
+					                                <input class="form-control" placeholder="" name="otime" required="" type="text">
+					                            </div>
+					                            <p class="help-block col-sm-4 red">* 必填</p>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属类型</label>
+					                            <div class="col-sm-6">
+					                                <select name="class" style="width: 100%;">
+					                                    <option value="类型一">类型一</option>
+					                                    <option value="类型二">类型二</option>
+					                                    <option value="类型三">类型三</option>
+					                                </select>
+					                            </div>
+					                        </div>  
+					                        <div class="form-group">
+					                            <div class="col-sm-offset-2 col-sm-10">
+					                                <button type="submit" onclick="return ajaxadd();" class="btn btn-default">保存信息</button>
+					                            </div>
+					                        </div>
+					                    </form>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+	<!-- Ajax异步实现添加兑换码 -->
+    <script type="text/javascript">
+	    function ajaxadd(){
+	        var uname=$("input[name='uname']").val();//获取表单数据
+	        var oid=$("input[name='oid']").val();
+	        var code=$("input[name='code']").val();
+	        var otime=$("input[name='otime']").val();
+	        var _class=$("select[name='class']").val();
+	        if(!uname || !oid || !code || !otime || !_class){
+	            alert('请填写每一项数据！');
+	            return false;
+	        }
+	        $.ajax({
+	            type:"post",
+	            url:"{:url('add')}",
+	            data:{uname:uname,oid:oid,code:code,otime:otime,class:_class},
+	            success:function(data){
+	                alert(data.msg);
+	            }
+	        });
+	        $("#myform")[0].reset();
+	        return false;
+	    }
+    </script>
+	<!--Basic Scripts-->
+    <script src="__static__/style/jquery_002.js"></script>
+    <script src="__static__/style/bootstrap.js"></script>
+    <script src="__static__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__static__/style/beyond.js"></script>
+
+</body></html>

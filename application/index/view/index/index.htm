@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">	
+<!--Head-->
+<head>
+    <meta charset="utf-8">
+    <title>兑换码查询系统</title>
+    <meta name="description" content="login page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__static__/style/bootstrap.css" rel="stylesheet">
+    <link href="__static__/style/font-awesome.css" rel="stylesheet">
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__static__/style/beyond.css" rel="stylesheet">
+    <link href="__static__/style/demo.css" rel="stylesheet">
+    <link href="__static__/style/animate.css" rel="stylesheet">
+</head>
+<!--Head Ends-->
+<!--Body-->
+
+<body>
+    <div class="login-container animated fadeInDown">
+        <form action="" method="post">
+            <div class="loginbox bg-white">
+                <div class="loginbox-title">兑换码查询</div>
+                <div class="loginbox-textbox">
+                    <input value="" class="form-control" placeholder="输入订单号" name="oid" type="text">
+                </div>
+                <div class="loginbox-textbox">
+                    <input class="form-control" placeholder="输入用户名" name="uname" type="text">
+                </div>
+                <div class="loginbox-submit">
+                    <input onclick="return ajaxcheckcode();" class="btn btn-primary btn-block" value="查询" type="submit">
+                </div>
+            </div>
+                <div class="logobox">
+                    <p class="text-center">查询结果显示在此处</p>
+                </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+	    function ajaxcheckcode(){
+	        var oid=$("input[name='oid']").val()
+	        var uname=$("input[name='uname']").val()
+	        if(!oid || !uname){
+	            alert('请填写完整数据！');
+	            return false;
+	        }
+	        $.ajax({
+	            type:"post",
+	            url:"{:url('ajaxcheckcode')}",
+	            data:{oid:oid,uname:uname},
+	            success:function(data){
+	                if(data.error == 0){
+	                    var html="<p style='color:green;'>"+data.msg+"</p>"
+	                    $(".logobox").html(html);
+	                }else if(data.error == 2){
+	                    var html="<p style='color:orange;'>"+data.msg+"</p>"
+	                    $(".logobox").html(html);
+	                }else{
+	                    var html="<p style='color:red;'>"+data.msg+"</p>"
+	                    $(".logobox").html(html);
+	                }
+	            }
+	        });
+	        return false;
+	    }
+    </script>
+    <!--Basic Scripts-->
+    <script src="__static__/style/jquery.js"></script>
+    <script src="__static__/style/bootstrap.js"></script>
+    <script src="__static__/style/jquery_002.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__static__/style/beyond.js"></script>
+
+</body><!--Body Ends--></html>
