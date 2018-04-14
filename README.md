@@ -1,0 +1,21 @@
+# redeem-code-cms
+兑换码/注册码查询系统<br/>
+<br/>
+功能和特点
+<ul>
+    <li>所有数据操作使用Ajax异步处理，用户体验好</li>
+    <li>用户根据用户名和订单号查询兑换码</li>
+    <li>可以设置兑换码有效时长</li>
+    <li>可以限制用户查询次数</li>
+    <li>后台查询、添加、条件搜索功能</li>
+    <li>支持excel表格批量导入兑换码</li>
+</ul>
+技术和框架
+<ul>
+    <li>thinkphp5</li>
+    <li>beyondadmin前端框架</li>
+    <li>ajax</li>
+    <li>PHPexcle插件</li>
+</ul>
+<br/>
+注意事项：系统没有管理员登录模块（觉得没必要），为了安全直接限制了后台的访问IP 
